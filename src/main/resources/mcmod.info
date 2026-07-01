@@ -1,0 +1,12 @@
+[
+  {
+    "modid": "soi",
+    "name": "§6Snoop On §4§lImmortality",
+    "version": "§e1.0.17",
+    "mcversion": "${mcversion}",
+    "credits": "The author §a§lYi_Jian_§r is the sole creator and developer of this mod.",
+    "authorList": ["§a§lYi_Jian_"],
+    "description": "Mod was born out of mortals' ultimate yearning for immortality.\n§e§lMod因凡人对不朽的极致向往而诞生",
+    "logoFile": "SOI.png"
+  }
+]
