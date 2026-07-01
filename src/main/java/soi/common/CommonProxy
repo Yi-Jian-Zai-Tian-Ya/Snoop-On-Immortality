@@ -1,0 +1,148 @@
+package soi.common;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.IGuiHandler;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
+import soi.SOI;
+import soi.api.dao_shu.*;
+import soi.api.dao_zai.*;
+import soi.api.dao_zai.cap.*;
+import soi.api.dao_zai.gong_fa.GongFa;
+import soi.api.dao_zai.gong_fa.GongFaCapabilities;
+import soi.api.dao_zai.gong_fa.IGongFa;
+import soi.api.ming_ge.IMingGe;
+import soi.api.ming_ge.MingGeCapabilities;
+import soi.api.token.*;
+import soi.api.xiu_xian.*;
+import soi.api.xiu_xian.player.*;
+import soi.common.block.BlockStructureMarker;
+import soi.common.event.xiu_xian.EventFanRen;
+import soi.common.inventory.rune.ContainerTeleportVoiceRune;
+import soi.common.entity.rune.EntityTeleportVoiceRune;
+import soi.common.event.*;
+import soi.common.event.dao_zai.*;
+import soi.common.inventory.inventory.*;
+import soi.common.inventory.corpse.ContainerCorpse;
+import soi.common.inventory.storage_bag.ContainerStorageBag;
+import soi.common.entity.corpse.*;
+import soi.common.event.corpse.DeathEvent;
+import soi.common.event.inv.EventTickHandler;
+import soi.common.event.xiu_xian.EventHuDun;
+import soi.common.event.xiu_xian.EventXiuXian;
+import soi.common.world.ModWorldGenerator;
+import soi.common.world.dimension.InitDimension;
+import soi.common.world.structure.StructureLaiFu;
+import soi.util.LocUtils;
+
+public class CommonProxy implements IGuiHandler
+{
+    public static final int GUI_INVENTORY = 0;
+    public static final int GUI_INWARD_OBSERVE = 1;
+    public static final int GUI_DAO_ZAI = 2;
+    public static final int GUI_CORPSE = 3;
+    public static final int GUI_STORAGE_BAG = 4;
+    public static final int GUI_TELEPORT_VOICE_RUNE = 5;
+
+    @Override public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) { return null; }
+
+    @Override
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        switch (ID)
+        {
+            case GUI_INVENTORY: return new ContainerNewInventory(player.inventory, !world.isRemote, player);
+
+            case GUI_INWARD_OBSERVE: return new ContainerInwardObserve();
+
+            case GUI_DAO_ZAI: return new ContainerDaoZaiInventory(player.inventory, !world.isRemote, player);
+
+            case GUI_CORPSE:
+            {
+                EntityCorpse corpse = EntityCorpse.getCorpse(world, x, y, z);
+                if (corpse != null) return new ContainerCorpse(player.inventory, corpse, true);
+            }
+
+            case GUI_STORAGE_BAG:
+            {
+                EnumHand hand = x == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+                IDaoZaiItemHandler bag = DaoZaiAPI.getDaoZaiHandler(player);
+
+                ItemStack selected = LocUtils.getNonEquippedStorageBagFromInventory(player, hand);
+                if (selected.isEmpty() || y != -1) return new ContainerStorageBag(bag.getStackInSlot(y), player.inventory, null, y);
+                return new ContainerStorageBag(selected, player.inventory, hand, y);
+            }
+
+            case GUI_TELEPORT_VOICE_RUNE:
+            {
+                if (y == 42000)
+                {
+                    EnumHand hand = x == 1 ? EnumHand.OFF_HAND : EnumHand.MAIN_HAND;
+                    ItemStack stack = player.getHeldItem(hand);
+                    return new ContainerTeleportVoiceRune(player, stack, hand);
+                }
+                else
+                {
+                    EntityTeleportVoiceRune rune = EntityTeleportVoiceRune.getRune(world, x, y, z);
+                    return new ContainerTeleportVoiceRune(player, rune, x, y, z);
+                }
+            }
+        }
+        return null;
+    }
+
+    public World getClientWorld() { return null; }
+
+    public void registerEventHandlers()
+    {
+        MinecraftForge.EVENT_BUS.register(new EventRegisterHandler());
+        MinecraftForge.EVENT_BUS.register(new EventXiuXian());
+        MinecraftForge.EVENT_BUS.register(new EventServer());
+        MinecraftForge.EVENT_BUS.register(new EventHuDun());
+        MinecraftForge.EVENT_BUS.register(new EventHandlerEntity());
+        MinecraftForge.EVENT_BUS.register(new EventHandlerItem());
+        MinecraftForge.EVENT_BUS.register(new DeathEvent());
+        MinecraftForge.EVENT_BUS.register(new EventTickHandler());
+        MinecraftForge.EVENT_BUS.register(new EventFanRen());
+    }
+
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        CapabilityManager.INSTANCE.register(IMingGe.class, new MingGeCapabilities.MingGeStorage(), soi.api.ming_ge.MingGe::new);
+        CapabilityManager.INSTANCE.register(IXiuXian.class, new XiuXianCapabilities.XiuXianStorage(), XiuXian::new);
+        CapabilityManager.INSTANCE.register(IXiuXianPlayer.class, new XiuXianPlayerCapabilities.XiuXianPlayerStorage(), XiuXianPlayer::new);
+        CapabilityManager.INSTANCE.register(IDaoZaiItemHandler.class, new DaoZaiCapabilities.CapabilityDaoZai(), DaoZaiContainer.class);
+        CapabilityManager.INSTANCE.register(IDaoZai.class, new DaoZaiCapabilities.CapabilityItemDaoZaiStorage(), () -> new DaoZaiItem(DaoZaiType.DAO_ZAI));
+        CapabilityManager.INSTANCE.register(IGongFa.class, new GongFaCapabilities.GongFaStorage(), GongFa::new);
+        CapabilityManager.INSTANCE.register(IDaoShu.class, new DaoShuCapabilities.DaoShuStorage(), DaoShu::new);
+        CapabilityManager.INSTANCE.register(IToken.class, new TokenProvider.TokenStorage(), Token::new);
+
+        MinecraftForge.TERRAIN_GEN_BUS.register(new EventTerrainHandler());
+
+        MapGenStructureIO.registerStructure(StructureLaiFu.Start.class, "LaiFu");
+        MapGenStructureIO.registerStructureComponent(StructureLaiFu.LaiFuComponent.class, "LaiFuComponent");
+
+        GameRegistry.registerTileEntity(
+                BlockStructureMarker.TileEntityStructureMarker.class,
+                new ResourceLocation(SOI.MODID, "structure_marker")
+        );
+
+        InitDimension.registerDimensions();
+    }
+
+    public void init()
+    {
+        GameRegistry.registerWorldGenerator(new ModWorldGenerator(), 0);
+    }
+
+    public void postInit(FMLPostInitializationEvent event) { }
+}
