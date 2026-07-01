@@ -1,0 +1,12 @@
+{
+  "parent": "soi:xiu_xian/root",
+  "display": {
+    "icon": { "item": "soi:lun_hui" },
+    "title": { "translate": "advancements.xiu_xian.lun_hui.title" },
+    "description": { "translate": "advancements.xiu_xian.lun_hui.description" },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": { "lun_hui": { "trigger": "minecraft:effects_changed", "conditions": { "effects": { "soi:fan_ren": {} } } } }
+}

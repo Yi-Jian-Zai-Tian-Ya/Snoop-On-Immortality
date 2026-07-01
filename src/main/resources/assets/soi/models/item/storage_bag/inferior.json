@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "soi:items/storage_bag/inferior"
+  }
+}

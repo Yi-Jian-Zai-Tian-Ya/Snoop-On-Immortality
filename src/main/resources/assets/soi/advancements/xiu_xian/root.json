@@ -1,0 +1,11 @@
+{
+  "display": {
+    "icon": { "item": "soi:electrum" },
+    "title": { "translate": "advancements.xiu_xian.root.title" },
+    "description": { "translate": "advancements.xiu_xian.root.description" },
+    "background": "minecraft:textures/blocks/beacon.png",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": { "entered_lun_hui": { "trigger": "minecraft:changed_dimension", "conditions": { "to": "LunHui" } } }
+}

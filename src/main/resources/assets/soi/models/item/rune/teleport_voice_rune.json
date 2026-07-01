@@ -1,0 +1,6 @@
+{
+  "parent": "soi:item/rune/rune",
+  "textures": {
+    "layer0": "soi:items/rune/teleport_voice_rune"
+  }
+}

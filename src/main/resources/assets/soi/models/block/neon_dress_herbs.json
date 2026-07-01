@@ -1,0 +1,7 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "particle": "soi:blocks/neon_dress_herbs",
+    "cross": "soi:blocks/neon_dress_herbs"
+  }
+}

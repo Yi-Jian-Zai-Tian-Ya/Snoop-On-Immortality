@@ -1,0 +1,6 @@
+{
+  "parent": "soi:item/backhandheld",
+  "textures": {
+    "layer0": "soi:items/broken_sword"
+  }
+}

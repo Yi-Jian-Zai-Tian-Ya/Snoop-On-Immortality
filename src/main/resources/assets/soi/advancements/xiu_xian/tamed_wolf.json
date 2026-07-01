@@ -1,0 +1,13 @@
+{
+  "parent": "soi:xiu_xian/lun_hui",
+  "display": {
+    "icon": { "item": "minecraft:bone" },
+    "title": { "translate": "advancements.xiu_xian.tamed_wolf.title" },
+    "description": { "translate": "advancements.xiu_xian.tamed_wolf.description" },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": true
+  },
+  "criteria": { "tamed_wolf": { "trigger": "minecraft:tame_animal", "conditions": { "entity": { "type": "wolf" } } } }
+}

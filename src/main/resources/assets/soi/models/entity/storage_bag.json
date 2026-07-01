@@ -1,0 +1,118 @@
+{
+	"textures": {
+		"bag": "soi:models/storage_bag/inferior"
+	},
+	"elements": [
+		{
+			"name": "first",
+			"from": [0.5, 0, 0.5],
+			"to": [4.5, 0.5, 8.5],
+			"faces": {
+				"north": {"uv": [0, 8, 0.5, 16], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [16, 15.5, 0, 16], "texture": "#bag"},
+				"south": {"uv": [15, 16, 15.5, 8], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [0, 8.5, 16, 9], "texture": "#bag"},
+				"down": {"uv": [0, 8, 16, 16], "rotation": 270, "texture": "#bag"}
+			}
+		},
+		{
+			"name": "second",
+			"from": [0, 0.5, 0],
+			"to": [5, 9.5, 9],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"north": {"uv": [0, 8, 1, 16], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [16, 16, 0, 15], "texture": "#bag"},
+				"south": {"uv": [15, 16, 16, 8], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [0, 8, 16, 9], "texture": "#bag"},
+				"up": {"uv": [0, 16, 16, 8], "rotation": 90, "texture": "#bag"},
+				"down": {"uv": [0, 8, 16, 16], "rotation": 270, "texture": "#bag"}
+			}
+		},
+		{
+			"name": "third",
+			"from": [1, 9.5, 1],
+			"to": [4, 9.75, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"north": {"uv": [15, 1, 16, 2], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [12, 1, 8, 2], "texture": "#bag"},
+				"south": {"uv": [8, 2, 9, 1], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [12, 1, 16, 2], "texture": "#bag"}
+			}
+		},
+		{
+			"name": "fourth-Main",
+			"from": [1, 9.75, 1],
+			"to": [4, 10.25, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"up": {"uv": [0, 8, 8, 0], "rotation": 90, "texture": "#bag"}
+			}
+		},
+		{
+			"name": "fourth-E",
+			"from": [4, 9.75, 0.5],
+			"to": [4.5, 10.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"north": {"uv": [0, 15, 1, 16], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [16, 15, 0, 16], "texture": "#bag"},
+				"south": {"uv": [15, 16, 16, 15], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [0, 15, 16, 16], "texture": "#bag"},
+				"up": {"uv": [0, 16, 16, 15], "rotation": 90, "texture": "#bag"},
+				"down": {"uv": [0, 15, 16, 16], "rotation": 270, "texture": "#bag"}
+			}
+		},
+		{
+			"name": "fourth-W",
+			"from": [0.5, 9.75, 0.5],
+			"to": [1, 10.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"north": {"uv": [0, 8, 1, 9], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [16, 9, 0, 8], "texture": "#bag"},
+				"south": {"uv": [15, 9, 16, 8], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [0, 8, 16, 9], "texture": "#bag"},
+				"up": {"uv": [0, 9, 16, 8], "rotation": 90, "texture": "#bag"},
+				"down": {"uv": [0, 8, 16, 9], "rotation": 270, "texture": "#bag"}
+			}
+		},
+		{
+			"name": "fourth-N",
+			"from": [1, 9.75, 0.5],
+			"to": [4, 10.5, 1],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"north": {"uv": [0, 9, 1, 15], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [16, 15, 0, 16], "texture": "#bag"},
+				"south": {"uv": [0, 15, 1, 9], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [0, 8, 16, 9], "texture": "#bag"},
+				"up": {"uv": [0, 15, 1, 9], "rotation": 90, "texture": "#bag"},
+				"down": {"uv": [0, 9, 1, 15], "rotation": 270, "texture": "#bag"}
+			}
+		},
+		{
+			"name": "fourth-S",
+			"from": [1, 9.75, 8],
+			"to": [4, 10.5, 8.5],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 5.125, 2]},
+			"faces": {
+				"north": {"uv": [15, 9, 16, 15], "rotation": 90, "texture": "#bag"},
+				"east": {"uv": [16, 15, 0, 16], "texture": "#bag"},
+				"south": {"uv": [15, 15, 16, 9], "rotation": 90, "texture": "#bag"},
+				"west": {"uv": [0, 8, 16, 9], "texture": "#bag"},
+				"up": {"uv": [15, 15, 16, 9], "rotation": 90, "texture": "#bag"},
+				"down": {"uv": [15, 9, 16, 15], "rotation": 270, "texture": "#bag"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "bag",
+			"origin": [8, 8, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7]
+		}
+	]
+}
