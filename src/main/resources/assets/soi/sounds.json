@@ -1,0 +1,51 @@
+{
+  "music.game": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "soi:music.bu_fan",
+        "stream": true,
+        "volume": 0.75
+      },
+      {
+        "name": "soi:music.bu_fan_px",
+        "stream": true,
+        "volume": 1.5
+      }
+    ]
+  },
+  "music.bu_fan": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "soi:music/bu_fan",
+        "stream": true,
+        "volume": 0.75
+      }
+    ]
+  },
+  "music.bu_fan_px": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "soi:music/bu_fan_px",
+        "stream": true,
+        "volume": 1.5
+      }
+    ]
+  },
+  "item.sword_carve": {
+    "category": "player",
+    "subtitle": "subtitles.item.sword.carve",
+    "sounds": [
+      "soi:item/sword_carve"
+    ]
+  },
+  "gong_fa.improve": {
+    "category": "player",
+    "subtitle": "subtitles.gong_fa.improve",
+    "sounds": [
+      "soi:gong_fa/improve"
+    ]
+  }
+}
