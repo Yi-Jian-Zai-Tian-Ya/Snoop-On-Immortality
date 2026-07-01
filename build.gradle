@@ -1,0 +1,70 @@
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:5.+'
+    }
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+
+apply plugin: 'net.minecraftforge.gradle'
+
+version = '1.0.17'
+group = 'soi'
+archivesBaseName = 'Snoop On Immortality'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
+minecraft {
+    mappings channel: 'snapshot', version: '20171003-1.12'
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2864'
+    configurations.configureEach {
+        exclude group: 'org.ow2.asm', module: 'asm'
+        exclude group: 'org.ow2.asm', module: 'asm-tree'
+        exclude group: 'org.ow2.asm', module: 'asm-analysis'
+        exclude group: 'org.ow2.asm', module: 'asm-util'
+    }
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title": "Snoop On Immortality",
+                "Specification-Vendor": "Yi_Jian_",
+                "Specification-Version": "${version}",
+                "Implementation-Title": "Snoop On Immortality",
+                "Implementation-Version": "${version}",
+                "Implementation-Vendor" :"Yi_Jian_",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'FMLCorePlugin': 'soi.SOICore',
+                'FMLCorePluginContainsFMLMod': 'true'
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+sourceSets.each {
+    def dir = layout.buildDirectory.file("sourcesSets/$it.name").get().asFile
+    it.output.resourcesDir = dir
+    it.java.outputDir = dir
+}
